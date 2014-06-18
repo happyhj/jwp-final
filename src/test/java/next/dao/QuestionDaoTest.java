@@ -2,6 +2,7 @@ package next.dao;
 
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Connection;
 import java.util.List;
 
 import next.model.Question;
@@ -23,8 +24,10 @@ public class QuestionDaoTest {
 
 	@Test
 	public void crud() throws Exception {
+		Connection conn = ConnectionManager.getConnection();
+
 		Question expected = new Question("자바지기", "title", "contents");
-		QuestionDao dut = new QuestionDao();
+		QuestionDao dut = new QuestionDao(conn);
 		dut.insert(expected);
 		
 		List<Question> questions = dut.findAll();

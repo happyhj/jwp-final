@@ -25,6 +25,14 @@ public class AnswerDao {
 			pstmt.setTimestamp(3, new Timestamp(answer.getTimeFromCreateDate()));
 			pstmt.setLong(4, answer.getQuestionId());
 			pstmt.executeUpdate();
+			
+			
+			// 해당 questionId에 해당하는 countOfAnswers 를 1 증가 시킨다.
+			String UpdateSql = "UPDATE QUESTIONS SET countOfComment = countOfComment + 1 WHERE questionId = ?";
+			pstmt = con.prepareStatement(UpdateSql);
+			pstmt.setLong(1, answer.getQuestionId());
+			pstmt.executeUpdate();
+			
 		} finally {
 			if (pstmt != null) {
 				pstmt.close();

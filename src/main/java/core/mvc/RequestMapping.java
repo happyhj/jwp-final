@@ -3,7 +3,9 @@ package core.mvc;
 import java.util.HashMap;
 import java.util.Map;
 
+import next.controller.AddanswerController;
 import next.controller.ListController;
+import next.controller.SaveController;
 import next.controller.ShowController;
 
 import org.slf4j.Logger;
@@ -16,8 +18,11 @@ public class RequestMapping {
 	public void initMapping() {
 		mappings.put("/list.next", new ListController());
 		mappings.put("/show.next", new ShowController());
+		mappings.put("/save.next", new SaveController());
 		mappings.put("/form.next", new ForwardController("form.jsp"));
-		
+		mappings.put("/api/addanswer.next", new AddanswerController());
+		mappings.put("/api/list.next", new ListController());
+
 		logger.info("Initialized Mapping Completed!");
 	}
 
