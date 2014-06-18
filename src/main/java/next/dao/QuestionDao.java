@@ -53,8 +53,7 @@ public class QuestionDao {
 	    	  return mapQuestionRow(rs);
 		  }	     
 	    };
-		String query = "SELECT questionId, writer, title, contents, createdDate, countOfComment FROM QUESTIONS " + 
-				"order by questionId desc";
+		String query = getSelectQuery() + "order by questionId desc";
 	    return (List<Question>)template.selectAll(query);
 	}
 
@@ -68,12 +67,15 @@ public class QuestionDao {
 	    	  return mapQuestionRow(rs);
 	      }	    
 	    };
-		String query = "SELECT questionId, writer, title, contents, createdDate, countOfComment FROM QUESTIONS " + 
-				"WHERE questionId = ?";
+		String query = getSelectQuery() + "WHERE questionId = ?";
 	    return (Question)template.selectById(query);
 	}
 	
-	private Question mapQuestionRow(ResultSet rs) throws SQLException {
+	private static String getSelectQuery(){
+		return "SELECT questionId, writer, title, contents, createdDate, countOfComment FROM QUESTIONS ";
+	}
+	
+	private static Question mapQuestionRow(ResultSet rs) throws SQLException {
 		return new Question(
 	              rs.getLong("questionId"), 
 	              rs.getString("writer"), 
